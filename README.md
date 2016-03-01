@@ -1,18 +1,15 @@
 # BouncyBall
-New version of BouncyBall, created by myself. Original: https://github.com/jython234/BouncyBall
-
-This version supports 0.14.0(protocol 45) and can be used to connect to once server by multiple ports.
+New version of BouncyBall, edited by @MrGenga.
+The original version can be found [here](https://github.com/jython234/BouncyBall).
+This version supports MCPE 0.14.0(protocol version 45) and can be used to connect to once server by multiple ports.
 
 # TODO list:
 - Add support of changing port
 - Multiple servers
 - More stable packet handling
 
-# Installing
-For run BouncyBall you must have Java 8 or higher.
-Pre-compiled binaries you can download from VK group: http://vk.com/bouncy.ball
-WARNING: On download from VK you must replace .jarr to .jar
-
-To start it, type(And for Windows, and for Unix):
-
-java -jar BouncyBall.jar
+# Installation
+To run BouncyBall you must install Java 8 or above.
+Pre-compiled binaries can be downloaded from [VK group](http://vk.com/bouncy.ball).
+WARNING: If you download from VK, you need to replace .jarr to .jar
+To start it, type ```java -jar BouncyBall.jar```, or alternatively run ```start.cmd``` on Windows and ```./start.sh``` on UNIX systems.
