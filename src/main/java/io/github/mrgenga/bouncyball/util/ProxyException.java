@@ -1,4 +1,4 @@
-package net.beaconpe.bouncyball.util;
+package io.github.mrgenga.bouncyball.util;
 
 /**
  * Global default exception used by the MCPE proxy.

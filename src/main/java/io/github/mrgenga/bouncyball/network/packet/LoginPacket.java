@@ -1,8 +1,8 @@
-package net.beaconpe.bouncyball.network.packet;
+package io.github.mrgenga.bouncyball.network.packet;
 
 import java.io.IOException;
 
-import net.beaconpe.bouncyball.BouncyBall;
+import io.github.mrgenga.bouncyball.BouncyBall;
 
 /**
  * MCPE Login Packet (0x8f).

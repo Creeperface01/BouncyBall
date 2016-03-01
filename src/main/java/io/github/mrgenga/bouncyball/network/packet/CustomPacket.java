@@ -1,8 +1,8 @@
-package net.beaconpe.bouncyball.network.packet;
+package io.github.mrgenga.bouncyball.network.packet;
 
-import net.beaconpe.bouncyball.BouncyBall;
-import net.beaconpe.bouncyball.util.Util;
-import static net.beaconpe.bouncyball.network.PacketIDs.*;
+import io.github.mrgenga.bouncyball.BouncyBall;
+import io.github.mrgenga.bouncyball.util.Util;
+import static io.github.mrgenga.bouncyball.network.PacketIDs.*;
 
 import java.io.IOException;
 import java.nio.BufferUnderflowException;

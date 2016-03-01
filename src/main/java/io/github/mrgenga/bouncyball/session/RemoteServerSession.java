@@ -1,6 +1,6 @@
-package net.beaconpe.bouncyball.session;
+package io.github.mrgenga.bouncyball.session;
 
-import net.beaconpe.bouncyball.*;
+import io.github.mrgenga.bouncyball.*;
 
 import java.io.IOException;
 import java.net.*;

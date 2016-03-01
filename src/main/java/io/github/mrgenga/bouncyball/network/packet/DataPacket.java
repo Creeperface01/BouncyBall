@@ -1,7 +1,7 @@
-package net.beaconpe.bouncyball.network.packet;
+package io.github.mrgenga.bouncyball.network.packet;
 
-import net.beaconpe.bouncyball.util.ProxyException;
-import net.beaconpe.bouncyball.util.BinaryStream;
+import io.github.mrgenga.bouncyball.util.ProxyException;
+import io.github.mrgenga.bouncyball.util.BinaryStream;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

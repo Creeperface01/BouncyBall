@@ -1,4 +1,4 @@
-package net.beaconpe.bouncyball.session;
+package io.github.mrgenga.bouncyball.session;
 
 import java.net.SocketAddress;
 

@@ -1,7 +1,7 @@
-package net.beaconpe.bouncyball.session;
+package io.github.mrgenga.bouncyball.session;
 
-import net.beaconpe.bouncyball.MinecraftPEServer;
-import net.beaconpe.bouncyball.util.ProxyException;
+import io.github.mrgenga.bouncyball.MinecraftPEServer;
+import io.github.mrgenga.bouncyball.util.ProxyException;
 
 import java.io.IOException;
 import java.lang.reflect.Proxy;

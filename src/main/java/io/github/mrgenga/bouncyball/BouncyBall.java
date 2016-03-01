@@ -1,6 +1,6 @@
-package net.beaconpe.bouncyball;
+package io.github.mrgenga.bouncyball;
 
-import net.beaconpe.bouncyball.util.ProxyException;
+import io.github.mrgenga.bouncyball.util.ProxyException;
 
 /**
  * Main class

@@ -1,13 +1,13 @@
-package net.beaconpe.bouncyball.network;
+package io.github.mrgenga.bouncyball.network;
 
-import net.beaconpe.bouncyball.MinecraftPEServer;
-import net.beaconpe.bouncyball.network.packet.CustomPacket;
-import net.beaconpe.bouncyball.network.packet.LoginPacket;
-import net.beaconpe.bouncyball.session.RemoteClientSession;
-import net.beaconpe.bouncyball.util.ProxyException;
-import net.beaconpe.bouncyball.util.Util;
+import io.github.mrgenga.bouncyball.MinecraftPEServer;
+import io.github.mrgenga.bouncyball.network.packet.CustomPacket;
+import io.github.mrgenga.bouncyball.network.packet.LoginPacket;
+import io.github.mrgenga.bouncyball.session.RemoteClientSession;
+import io.github.mrgenga.bouncyball.util.ProxyException;
+import io.github.mrgenga.bouncyball.util.Util;
 
-import static net.beaconpe.bouncyball.network.PacketIDs.*;
+import static io.github.mrgenga.bouncyball.network.PacketIDs.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

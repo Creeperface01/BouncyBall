@@ -1,4 +1,4 @@
-package net.beaconpe.bouncyball.util;
+package io.github.mrgenga.bouncyball.util;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;

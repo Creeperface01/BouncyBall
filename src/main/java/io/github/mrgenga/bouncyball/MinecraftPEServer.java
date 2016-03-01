@@ -1,8 +1,8 @@
-package net.beaconpe.bouncyball;
+package io.github.mrgenga.bouncyball;
 
-import net.beaconpe.bouncyball.network.PacketIntercepter;
-import net.beaconpe.bouncyball.session.RemoteClientSession;
-import net.beaconpe.bouncyball.session.RemoteServerSession;
+import io.github.mrgenga.bouncyball.network.PacketIntercepter;
+import io.github.mrgenga.bouncyball.session.RemoteClientSession;
+import io.github.mrgenga.bouncyball.session.RemoteServerSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;

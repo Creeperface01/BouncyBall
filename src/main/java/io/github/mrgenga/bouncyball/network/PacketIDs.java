@@ -1,4 +1,4 @@
-package net.beaconpe.bouncyball.network;
+package io.github.mrgenga.bouncyball.network;
 
 /**
  * Copyright 2015 BlockServerProject (https://github.com/BlockServerProject/BlockServer)
