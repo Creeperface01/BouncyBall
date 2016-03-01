@@ -56,6 +56,9 @@ public class PacketIntercepter {
             case LOGIN_PACKET:
                 LoginPacket lp = new LoginPacket();
                 lp.decode(ep.buffer);
+                if(!lp.isCorrect){
+                    return;
+                }
                 server.getLogger().info(lp.username+"["+session.getAddress().toString()+"] logged into the proxy. (Protocol "+lp.protocol+")");
 
                 session.setUsername(lp.username);
@@ -75,7 +78,7 @@ public class PacketIntercepter {
                 server.clientSessions.remove(session.getAddress().toString());
 
                 if(toServer) {
-                    server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected: disconnected.");
+                    server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected.");
                 }
                 break;
 

@@ -3,7 +3,7 @@
 
 #Remote Server information:
 remoteServer: localhost
-remoteServerPort: 19132
+remoteServerPort: 19133
 
 #Logging information.
 logDecodeErrors: true
