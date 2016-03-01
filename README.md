@@ -14,4 +14,5 @@ Pre-compiled binaries you can download from VK group: http://vk.com/bouncy.ball
 WARNING: On download from VK you must replace .jarr to .jar
 
 To start it, type(And for Windows, and for Unix):
-[code]java -jar BouncyBall.jar[/code]
+
+java -jar BouncyBall.jar
