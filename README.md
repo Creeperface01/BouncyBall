@@ -13,3 +13,7 @@ To run BouncyBall you must install Java 8 or above.
 Pre-compiled binaries can be downloaded from [VK group](http://vk.com/bouncy.ball).
 WARNING: If you download from VK, you need to replace .jarr to .jar
 To start it, type ```java -jar BouncyBall.jar```, or alternatively run ```start.cmd``` on Windows and ```./start.sh``` on UNIX systems.
+
+# Compiling
+You can compile snapshot on your Linux machine. Clone this repository with ```git``` and compile it with Apache Maven: ```mvn package```
+

@@ -143,6 +143,15 @@ public class PacketIntercepter {
                 }
                 break;*/
 
+            case MC_DISCONNECT_NOTIFICATION:
+                session.getRemoteServer().setRunning(false);
+
+                server.serverSessions.remove(session.getRemoteServer().getAddress().toString());
+                server.clientSessions.remove(session.getAddress().toString());
+
+                server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected.");
+                break;
+
         /*case MC_MESSAGE_PACKET:
             if(toServer) { //To prevent private messages from being displayed.
                 MessagePacket mp = new MessagePacket();
