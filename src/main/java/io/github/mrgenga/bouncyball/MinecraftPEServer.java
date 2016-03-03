@@ -9,9 +9,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.net.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * A Minecraft PE Server.
@@ -68,6 +66,7 @@ public class MinecraftPEServer implements Runnable{
             serverSocket = new DatagramSocket(port);
             logger.info("Server started on port "+port);
             while(running){
+
                 serverSocket.setSoTimeout(2000);
 
                 byte[] recvBuf = new byte[1024 * 1024];

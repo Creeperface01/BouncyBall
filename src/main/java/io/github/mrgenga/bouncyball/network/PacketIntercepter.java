@@ -1,8 +1,7 @@
 package io.github.mrgenga.bouncyball.network;
 
 import io.github.mrgenga.bouncyball.MinecraftPEServer;
-import io.github.mrgenga.bouncyball.network.packet.CustomPacket;
-import io.github.mrgenga.bouncyball.network.packet.LoginPacket;
+import io.github.mrgenga.bouncyball.network.packet.*;
 import io.github.mrgenga.bouncyball.session.RemoteClientSession;
 import io.github.mrgenga.bouncyball.util.ProxyException;
 import io.github.mrgenga.bouncyball.util.Util;
@@ -12,6 +11,9 @@ import static io.github.mrgenga.bouncyball.network.PacketIDs.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+
+import io.github.jython234.jraklibplus.protocol.raknet.*;
+import io.github.jython234.jraklibplus.protocol.raknet.CustomPackets.*;
 
 /**
  *
@@ -32,8 +34,58 @@ public class PacketIntercepter {
             //server.getLogger().debug("Intercepting packet "+ Util.toHex(pid)+" (ToServer: "+Boolean.toString(toServer)+")");
 
             if(pid <= RAKNET_CUSTOM_PACKET_MAX && pid >= RAKNET_CUSTOM_PACKET_MIN){ //Custom Packet
-                cp = new CustomPacket(bb);
-                for(CustomPacket.EncapsulatedPacket ep: cp.packets){
+                switch(pid){
+                    case (byte)0x80:
+                        cp = new CustomPacket_0();
+                        break;
+                    case (byte)0x81:
+                        cp = new CustomPacket_1();
+                        break;
+                    case (byte)0x82:
+                        cp = new CustomPacket_2();
+                        break;
+                    case (byte)0x83:
+                        cp = new CustomPacket_3();
+                        break;
+                    case (byte)0x84:
+                        cp = new CustomPacket_4();
+                        break;
+                    case (byte)0x85:
+                        cp = new CustomPacket_5();
+                        break;
+                    case (byte)0x86:
+                        cp = new CustomPacket_6();
+                        break;
+                    case (byte)0x87:
+                        cp = new CustomPacket_7();
+                        break;
+                    case (byte)0x88:
+                        cp = new CustomPacket_8();
+                        break;
+                    case (byte)0x89:
+                        cp = new CustomPacket_9();
+                        break;
+                    case (byte)0x8A:
+                        cp = new CustomPacket_A();
+                        break;
+                    case (byte)0x8B:
+                        cp = new CustomPacket_B();
+                        break;
+                    case (byte)0x8C:
+                        cp = new CustomPacket_C();
+                        break;
+                    case (byte)0x8D:
+                        cp = new CustomPacket_D();
+                        break;
+                    case (byte)0x8E:
+                        cp = new CustomPacket_E();
+                        break;
+                    case (byte)0x8F:
+                        cp = new CustomPacket_F();
+                        break;
+                }
+                cp.decode(buffer);
+                for(EncapsulatedPacket ep: cp.packets){
                     handleCustomPacket(ep, session, toServer);
                 }
             }
@@ -43,19 +95,19 @@ public class PacketIntercepter {
         }
     }
 
-    private void handleCustomPacket(CustomPacket.EncapsulatedPacket ep, RemoteClientSession session, boolean toServer) throws IOException {
+    private void handleCustomPacket(EncapsulatedPacket ep, RemoteClientSession session, boolean toServer) throws IOException {
         byte pid;
-        if(ep.buffer.length < 2){ //Is encapsulated raknet packet without args(like MCDisconnectNotification)
-            pid = ep.buffer[0]; //first byte
+        if(ep.payload.length < 2){
+            pid = ep.payload[0]; //first byte
         } else {
-            pid = ep.buffer[1]; //second byte
+            pid = ep.payload[1]; //second byte
         }
         //server.getLogger().debug("Intercepting packet "+ Util.toHex(pid)+" (ToServer: "+Boolean.toString(toServer)+")");
 
         switch(pid){
             case LOGIN_PACKET:
                 LoginPacket lp = new LoginPacket();
-                lp.decode(ep.buffer);
+                lp.decode(ep.payload);
                 if(!lp.isCorrect){
                     return;
                 }
@@ -71,39 +123,35 @@ public class PacketIntercepter {
                 }
                 break;
 
-            case MC_DISCONNECT_NOTIFICATION:
-                session.getRemoteServer().setRunning(false);
+          /*case DISCONNECT_PACKET:
+                DisconnectPacket dp = new DisconnectPacket();
+                dp.decode(ep.payload);
 
-                server.serverSessions.remove(session.getRemoteServer().getAddress().toString());
-                server.clientSessions.remove(session.getAddress().toString());
-
-                if(toServer) {
-                    server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected.");
+                if(!dp.isCorrect){
+                    return;
                 }
-                break;
 
-            /*case DISCONNECT_PACKET:
                 session.getRemoteServer().setRunning(false);
 
                 server.serverSessions.remove(session.getRemoteServer().getAddress().toString());
                 server.clientSessions.remove(session.getAddress().toString());
 
                 if(toServer) {
-                    server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected: disconnected by client.");
+                    server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected: disconnected by client: "+dp.message);
                 } else {
-                    server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected: disconnected by server.");
-               }
-                break;
-
-            case MC_MESSAGE_PACKET:
-                if(toServer) { //To prevent private messages from being displayed.
-                    MessagePacket mp = new MessagePacket();
-                    mp.decode(ep.buffer);
-                    if(server.logChat()) {
-                        server.getLogger().info("[Server: " + session.getRemoteServer().getAddress().toString() + "] " + mp.message);
-                    }
+                    server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected: disconnected by server: "+dp.message);
                 }
                 break;*/
+
+        /*case MC_MESSAGE_PACKET:
+            if(toServer) { //To prevent private messages from being displayed.
+                MessagePacket mp = new MessagePacket();
+                mp.decode(ep.buffer);
+                if(server.logChat()) {
+                    server.getLogger().info("[Server: " + session.getRemoteServer().getAddress().toString() + "] " + mp.message);
+                }
+            }
+            break;*/
         }
     }
 }
