@@ -15,7 +15,7 @@ public class DisconnectPacket extends DataPacket{
     protected void _decode() {
         try{
             this.message = this.getString();
-            if(this.message.length > 32){
+            if(this.message.length() > 32){
                 BouncyBall.SERVER_INSTANCE.getLogger().error("Not correct DisconnectPacket received!");
                 this.isCorrect = false;
             }
