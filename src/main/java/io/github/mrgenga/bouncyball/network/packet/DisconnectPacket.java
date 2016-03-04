@@ -18,6 +18,7 @@ public class DisconnectPacket extends DataPacket{
             if(this.message.length() > 32){
                 BouncyBall.SERVER_INSTANCE.getLogger().error("Not correct DisconnectPacket received!");
                 this.isCorrect = false;
+                return;
             }
             this.isCorrect = true;
         } catch(ArrayIndexOutOfBoundsException e){
