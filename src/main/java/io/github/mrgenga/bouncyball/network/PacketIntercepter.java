@@ -112,6 +112,7 @@ public class PacketIntercepter {
                     if(!lp.isCorrect){
                         return;
                     }
+                    server.getLogger().debug(lp.username+" connected to "+lp.serverAddress);
                     server.getLogger().info(lp.username+"["+session.getAddress().toString()+"] logged into the proxy. (Protocol "+lp.protocol+")");
                     //server.getLogger().debug("Intercepting packet "+ Util.toHex(pid)+" CustomPacket PID: "+Util.toHex(cPID)+"(ToServer: "+Boolean.toString(toServer)+")");
 
