@@ -102,7 +102,7 @@ public class PacketIntercepter {
         } else {
                 pid = ep.payload[1]; //second byte
         }
-        server.getLogger().debug("Intercepting packet "+ Util.toHex(pid)+" CustomPacket PID: "+Util.toHex(cPID)+"(ToServer: "+Boolean.toString(toServer)+")");
+        //server.getLogger().debug("Intercepting packet "+ Util.toHex(pid)+" CustomPacket PID: "+Util.toHex(cPID)+"(ToServer: "+Boolean.toString(toServer)+")");
 
         switch(pid){
             case LOGIN_PACKET:
@@ -112,6 +112,7 @@ public class PacketIntercepter {
                     return;
                 }
                 server.getLogger().info(lp.username+"["+session.getAddress().toString()+"] logged into the proxy. (Protocol "+lp.protocol+")");
+                server.getLogger().debug("Intercepting packet "+ Util.toHex(pid)+" CustomPacket PID: "+Util.toHex(cPID)+"(ToServer: "+Boolean.toString(toServer)+")");
 
                 session.setUsername(lp.username);
                 return;
