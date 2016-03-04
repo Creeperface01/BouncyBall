@@ -96,14 +96,15 @@ public class PacketIntercepter {
     }
 
     private void handleCustomPacket(EncapsulatedPacket ep, RemoteClientSession session, boolean toServer, byte cPID) throws IOException {
-        if(cPID == (byte)0x84){
-            byte pid;
-            if(ep.payload.length < 2){
-                pid = ep.payload[0]; //first byte
-            } else {
+        byte pid;
+        if(ep.payload.length < 2){
+            pid = ep.payload[0]; //first byte
+        } else {
                 pid = ep.payload[1]; //second byte
-            }
-            //server.getLogger().debug("Intercepting packet "+ Util.toHex(pid)+" (ToServer: "+Boolean.toString(toServer)+")");
+        }
+        //server.getLogger().debug("Intercepting packet "+ Util.toHex(pid)+" (ToServer: "+Boolean.toString(toServer)+")");
+
+        if(cPID == (byte)0x84){
 
             switch(pid){
                 case LOGIN_PACKET:

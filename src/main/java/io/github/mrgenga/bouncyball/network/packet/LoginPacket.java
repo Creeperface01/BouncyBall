@@ -1,6 +1,7 @@
 package io.github.mrgenga.bouncyball.network.packet;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import io.github.mrgenga.bouncyball.BouncyBall;
 
