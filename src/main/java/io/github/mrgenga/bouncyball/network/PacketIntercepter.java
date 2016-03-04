@@ -86,7 +86,7 @@ public class PacketIntercepter {
                 }
                 cp.decode(buffer);
                 for(EncapsulatedPacket ep: cp.packets){
-                    handleCustomPacket(ep, session, toServer);
+                    handleCustomPacket(ep, session, toServer, cp.getPID());
                 }
             }
         } catch (IOException e) {
@@ -95,54 +95,67 @@ public class PacketIntercepter {
         }
     }
 
-    private void handleCustomPacket(EncapsulatedPacket ep, RemoteClientSession session, boolean toServer) throws IOException {
-        byte pid;
-        if(ep.payload.length < 2){
-            pid = ep.payload[0]; //first byte
-        } else {
-            pid = ep.payload[1]; //second byte
-        }
-        //server.getLogger().debug("Intercepting packet "+ Util.toHex(pid)+" (ToServer: "+Boolean.toString(toServer)+")");
+    private void handleCustomPacket(EncapsulatedPacket ep, RemoteClientSession session, boolean toServer, byte cPID) throws IOException {
+        if(cPID == (byte)0x84){
+            byte pid;
+            if(ep.payload.length < 2){
+                pid = ep.payload[0]; //first byte
+            } else {
+                pid = ep.payload[1]; //second byte
+            }
+            //server.getLogger().debug("Intercepting packet "+ Util.toHex(pid)+" (ToServer: "+Boolean.toString(toServer)+")");
 
-        switch(pid){
-            case LOGIN_PACKET:
-                LoginPacket lp = new LoginPacket();
-                lp.decode(ep.payload);
-                if(!lp.isCorrect){
+            switch(pid){
+                case LOGIN_PACKET:
+                    LoginPacket lp = new LoginPacket();
+                    lp.decode(ep.payload);
+                    if(!lp.isCorrect){
+                        return;
+                    }
+                    server.getLogger().info(lp.username+"["+session.getAddress().toString()+"] logged into the proxy. (Protocol "+lp.protocol+")");
+
+                    session.setUsername(lp.username);
                     return;
-                }
-                server.getLogger().info(lp.username+"["+session.getAddress().toString()+"] logged into the proxy. (Protocol "+lp.protocol+")");
 
-                session.setUsername(lp.username);
-                break;
-
-            case MOVE_PLAYER_PACKET:
-                if(!session.hasSpawned()){
-                    session.setSpawned(true);
-                    server.getLogger().debug("Spawned!");
-                }
-                break;
-
-          /*case DISCONNECT_PACKET:
-                DisconnectPacket dp = new DisconnectPacket();
-                dp.decode(ep.payload);
-
-                if(!dp.isCorrect){
+                case MOVE_PLAYER_PACKET:
+                    if(!session.hasSpawned()){
+                        session.setSpawned(true);
+                        server.getLogger().debug("Spawned!");
+                    }
                     return;
-                }
 
-                session.getRemoteServer().setRunning(false);
+              /*case DISCONNECT_PACKET:
+                    DisconnectPacket dp = new DisconnectPacket();
+                    dp.decode(ep.payload);
 
-                server.serverSessions.remove(session.getRemoteServer().getAddress().toString());
-                server.clientSessions.remove(session.getAddress().toString());
+                    if(!dp.isCorrect){
+                        return;
+                    }
 
-                if(toServer) {
-                    server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected: disconnected by client: "+dp.message);
-                } else {
-                    server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected: disconnected by server: "+dp.message);
+                    session.getRemoteServer().setRunning(false);
+
+                    server.serverSessions.remove(session.getRemoteServer().getAddress().toString());
+                    server.clientSessions.remove(session.getAddress().toString());
+
+                    if(toServer) {
+                        server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected: disconnected by client: "+dp.message);
+                    } else {
+                        server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected: disconnected by server: "+dp.message);
+                    }
+                    return;*/
+
+            /*case MC_MESSAGE_PACKET:
+                if(toServer) { //To prevent private messages from being displayed.
+                    MessagePacket mp = new MessagePacket();
+                    mp.decode(ep.buffer);
+                    if(server.logChat()) {
+                        server.getLogger().info("[Server: " + session.getRemoteServer().getAddress().toString() + "] " + mp.message);
+                    }
                 }
                 break;*/
-
+            }
+        }
+        switch(pid){
             case MC_DISCONNECT_NOTIFICATION:
                 session.getRemoteServer().setRunning(false);
 
@@ -151,16 +164,6 @@ public class PacketIntercepter {
 
                 server.getLogger().info(session.getUsername() + "[" + session.getAddress().toString() + "] disconnected.");
                 break;
-
-        /*case MC_MESSAGE_PACKET:
-            if(toServer) { //To prevent private messages from being displayed.
-                MessagePacket mp = new MessagePacket();
-                mp.decode(ep.buffer);
-                if(server.logChat()) {
-                    server.getLogger().info("[Server: " + session.getRemoteServer().getAddress().toString() + "] " + mp.message);
-                }
-            }
-            break;*/
         }
     }
 }
