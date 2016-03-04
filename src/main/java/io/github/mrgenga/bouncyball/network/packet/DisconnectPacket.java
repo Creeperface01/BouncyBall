@@ -13,18 +13,8 @@ public class DisconnectPacket extends DataPacket{
 
     @Override
     protected void _decode() {
-        try{
-            this.message = this.getString();
-            if(this.message.length() > 32){
-                BouncyBall.SERVER_INSTANCE.getLogger().error("Not correct DisconnectPacket received!");
-                this.isCorrect = false;
-                return;
-            }
-            this.isCorrect = true;
-        } catch(ArrayIndexOutOfBoundsException e){
-            BouncyBall.SERVER_INSTANCE.getLogger().error("Not correct DisconnectPacket received!");
-            this.isCorrect = false;
-        }
+        this.message = this.getString();
+        this.isCorrect = true;
     }
 
     @Override

@@ -1,7 +1,8 @@
 package io.github.mrgenga.bouncyball.session;
 
 import io.github.mrgenga.bouncyball.MinecraftPEServer;
-import io.github.mrgenga.bouncyball.util.ProxyException;
+import io.github.mrgenga.bouncyball.network.packet.DataPacket;
+import io.github.mrgenga.bouncyball.util.*;
 
 import java.io.IOException;
 import java.lang.reflect.Proxy;
@@ -28,20 +29,20 @@ public class RemoteClientSession implements Session{
 
     @Override
     public void handlePacket(byte[] buffer) {
+        byte[] buf = server.getPacketIntercepter().interceptPacket(buffer, this, true);
         //server.getLogger().debug("Forwarded packet "+buffer[0]+" to ");
         try {
-            remoteServer.forwardToServer(buffer);
-            server.getPacketIntercepter().interceptPacket(buffer, this, true);
+            remoteServer.forwardToServer(buf);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void forwardToClient(byte[] buffer){
-        DatagramPacket dp = new DatagramPacket(buffer, buffer.length, address);
+        byte[] buf = server.getPacketIntercepter().interceptPacket(buffer, this, false);
+        DatagramPacket dp = new DatagramPacket(buf, buf.length, address);
         try {
             server.sendPacket(dp);
-            server.getPacketIntercepter().interceptPacket(buffer, this, false);
             //server.getLogger().debug("Forwarded packet to client.");
         } catch (IOException e) {
             throw new ProxyException(e);
